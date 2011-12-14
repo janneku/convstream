@@ -57,14 +57,14 @@ enc_streambuf::enc_streambuf(std::basic_istream<uint32_t> &source,
 
 enc_streambuf::int_type enc_streambuf::underflow()
 {
-	iconv_t conv = iconv_open(m_enc.c_str(), "UTF-32");
-	if (conv == iconv_t(-1)) {
-		throw conv_error("Unable to initialize iconv");
-	}
-
 	fillbuf();
 	if (m_left == 0) {
 		return traits_type::eof();
+	}
+
+	iconv_t conv = iconv_open(m_enc.c_str(), "UTF-32");
+	if (conv == iconv_t(-1)) {
+		throw conv_error("Unable to initialize iconv");
 	}
 
 	char *out_ptr = m_buf;
@@ -101,6 +101,11 @@ dec_streambuf::dec_streambuf(std::istream &source, const std::string &enc) :
 
 dec_streambuf::int_type dec_streambuf::underflow()
 {
+	fillbuf();
+	if (m_left == 0) {
+		return traits_type::eof();
+	}
+
 	/*
 	 * iconv likes to write an UTF-32 BOM to the beginning of the output
 	 * if the used byte order is not specified.
@@ -112,11 +117,6 @@ dec_streambuf::int_type dec_streambuf::underflow()
 #endif
 	if (conv == iconv_t(-1)) {
 		throw conv_error("Unable to initialize iconv");
-	}
-
-	fillbuf();
-	if (m_left == 0) {
-		return traits_type::eof();
 	}
 
 	char *out_ptr = (char *) m_buf;
