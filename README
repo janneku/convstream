@@ -1,0 +1,5 @@
+STL streams that perform unicode encoding and decoding (with iconv)
+
+Copyright 2011 Janne Kulmala <janne.t.kulmala@iki.fi>
+
+See LICENSE file for license.
