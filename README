@@ -3,3 +3,16 @@ STL streams that perform unicode encoding and decoding (with iconv)
 Copyright 2011 Janne Kulmala <janne.t.kulmala@iki.fi>
 
 See LICENSE file for license.
+
+Contains STL input and output streams that can used for both pull and
+push-style encoding and decoding.
+
+Available classes:
+
+    Unicode streams
+	dec_istream - Decodes (reads bytes from an input iterator)
+	enc_ostream - Encodes (writes the bytes with an output iterator)
+
+    Byte streams
+	dec_ostream - Push decode (writes the unicode with an output iterator)
+	enc_istream - Pull encode (reads unicode from an input iterator)
