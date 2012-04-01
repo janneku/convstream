@@ -1,4 +1,4 @@
-STL streams that perform unicode encoding and decoding (with iconv)
+STL streams that perform unicode encoding and decoding (e.g. UTF-8)
 
 Copyright 2011 Janne Kulmala <janne.t.kulmala@iki.fi>
 
@@ -6,6 +6,12 @@ See LICENSE file for license.
 
 Contains STL input and output streams that can used for both pull and
 push-style encoding and decoding.
+
+The in-memory presentation of unicode strings is the same as used in 
+Python, i.e. the type of a character is uint32_t (4 bytes). Uses iconv 
+library (http://www.gnu.org/software/libiconv/) to perform the 
+conversions. For example, the stream classes can be used to perform 
+on-the-fly conversion when reading and writing to/from regular files.
 
 Available classes:
 
